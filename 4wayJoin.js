@@ -1,9 +1,7 @@
 var request = require('request');
 
-
-
 function execute(numberOfEntries,largeEntry){
-var select = largeEntry ? "W1.*,W2.*" : "W0.unique1 as a,W1.unique1 as b ,W2.unique1 as c,W3.unique1 as d";
+var select = largeEntry ? "W0.*,W1.*,W2.*,W3.*" : "W0.unique1 as a,W1.unique1 as b ,W2.unique1 as c,W3.unique1 as d";
 var query = `use Winsconsin;\nselect ${select} from Winsconsin0 W0 
 inner join Winsconsin1 W1 on W0.unique2 = W1.unique2 
 inner join Winsconsin2 W2 on W0.unique2 = W2.unique2 

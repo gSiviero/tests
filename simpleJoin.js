@@ -2,7 +2,7 @@ var request = require('request');
 
 
 
-function execute(numberOfEntries){
+function execute(){
 
 var options = {
   'method': 'POST',
@@ -11,7 +11,7 @@ var options = {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-    "statement": `use Winsconsin;\n select W1.unique1,W0.unique1 as original from  Winsconsin0 W0 inner join Winsconsin1 W1 on W0.unique2 = W1.unique2 where W1.unique2 <= ${numberOfEntries}` ,
+    "statement": `use Winsconsin;\n select count(*) from  Winsconsin0 R inner join Winsconsin1 S on R.unique2 = S.unique2` ,
     "logical-plan": true,
     "optimized-logical-plan": true,
     "plan-format": "JSON",

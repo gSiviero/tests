@@ -6,7 +6,13 @@ var options = {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-    "statement": "drop dataverse Winsconsin if exists;\ncreate dataverse Winsconsin;\nuse Winsconsin;\ncreate type WinsconsinType as {unique1:bigint,unique2:bigint}; \n create external dataset Winsconsin0(WinsconsinType)\n\t using localfs((\"path\"= \"localhost:///home/giulliano/IdeaProjects/JSON-Wisconsin-Data-Generator/outputp_0.adm\"),(\"format\"=\"adm\"));\n create external dataset Winsconsin1(WinsconsinType)\n\t using localfs((\"path\"= \"localhost:///home/giulliano/IdeaProjects/JSON-Wisconsin-Data-Generator/outputp_1.adm\"),(\"format\"=\"adm\"));\n create external dataset Winsconsin2(WinsconsinType)\n\t using localfs((\"path\"= \"localhost:///home/giulliano/IdeaProjects/JSON-Wisconsin-Data-Generator/outputp_2.adm\"),(\"format\"=\"adm\"));\n create external dataset Winsconsin3(WinsconsinType)\n\t using localfs((\"path\"= \"localhost:///home/giulliano/IdeaProjects/JSON-Wisconsin-Data-Generator/outputp_3.adm\"),(\"format\"=\"adm\"))",
+    "statement": `drop dataverse Winsconsin if exists;
+    \ncreate dataverse Winsconsin;\nuse Winsconsin;
+    \ncreate type WinsconsinType as {unique1:bigint,unique2:bigint}; 
+    \n create external dataset Winsconsin0(WinsconsinType)
+    \n\t using localfs((\"path\"= \"localhost:///home/giulliano/IdeaProjects/JSON-Wisconsin-Data-Generator/R1.adm\"),(\"format\"=\"adm\"));
+    \n create external dataset Winsconsin1(WinsconsinType)
+    \n\t using localfs((\"path\"= \"localhost:///home/giulliano/IdeaProjects/JSON-Wisconsin-Data-Generator/S1.adm\"),(\"format\"=\"adm\"));`,
     "logical-plan": true,
     "optimized-logical-plan": true,
     "plan-format": "JSON",

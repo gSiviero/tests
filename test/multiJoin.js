@@ -2,111 +2,33 @@ var assert = require('assert');
 var multiJoin = require('../multiJoin.js');
 var simpleJoin = require('../simpleJoin.js');
 var FourwayJoin = require('../4wayJoin.js');
+const seedrandom = require('seedrandom');
+const generator = seedrandom(1);
 
+function randomIntFromInterval(min, max) { // min and max included 
+    return Math.floor(generator()* (max - min + 1) + min)
+  }
 
 describe("Simple Join Tests", () => {
-    describe(`Small Entries Test`, (done) => {
+    describe.only(`Small Entries Test`, (done) => {
+        var executionTime = 0;
+        var promises = simpleJoin(6000, false);
+        var lastPromise = null;
         for(i=0;i<1;i++){
-        var entries = [100, 1000, 5000, 20000, 50000];
-        // var entries = [5000];
-        entries.forEach((e) => {
-            it(`${e} entries small Entries`, (done) => {
-                simpleJoin(e, false).then((r) => {
-                    let metrics = JSON.parse(r.body).metrics;
-                    assert.equal(r.statusCode, 200);
-                    //assert.equal(metrics.resultCount, e);
-                    done();
-                }).catch((e) => {
-                    done(e);
-                })
-            }).timeout(50000);
-        });
-    }
-    });
-    describe(`Large Entries Test`, (done) => {
-        for(i=0;i<1;i++){
-        var entries = [100, 1000];
-        entries.forEach((e) => {
-            it(`${e} entries large Entries`, (done) => {
-                var entries = [100, 1000];
-                simpleJoin(e, true).then((r) => {
-                    let metrics = JSON.parse(r.body).metrics;
-                    assert.equal(r.statusCode, 200);
-                    //assert.equal(metrics.resultCount, e);
-                    done();
-                }).catch((e) => {
-                    done(e);
-                })
-            }).timeout(50000);
-        });
-    }
-    });
-    
-})
-
-describe("3-Join Tests", () => {
-    
-    describe(`Small Entries Test`, (done) => {
-        var entries = [100, 1000, 5000, 20000, 50000];
-        entries.forEach((e) => {
-            it(`${e} entries small Entries`, (done) => {
-                multiJoin(e, false).then((r) => {
-                    let metrics = JSON.parse(r.body).metrics;
-                    assert.equal(r.statusCode, 200);
-                    //assert.equal(metrics.resultCount, e);
-                    done();
-                }).catch((e) => {
-                    done(e);
-                })
-            }).timeout(50000);
-        });
-    });
-    describe(`Large Entries Test`, (done) => {
-        var entries = [100, 1000];
-        entries.forEach((e) => {
-            it(`${e} entries large Entries`, (done) => {
-                multiJoin(e, true).then((r) => {
-                    let metrics = JSON.parse(r.body).metrics;
-                    assert.equal(r.statusCode, 200);
-                    //assert.equal(metrics.resultCount, e);
-                    done();
-                }).catch((e) => {
-                    done(e);
-                })
-            }).timeout(50000);
-        });
-    });
-})
-
-describe("4-way Join Tests", () => {
-    describe(`Small Entries Test`, (done) => {
-        var entries = [100, 1000, 5000, 20000, 50000];
-        entries.forEach((e) => {
-            it(`${e} entries small Entries`, (done) => {
-                FourwayJoin(e, false).then((r) => {
-                    let metrics = JSON.parse(r.body).metrics;
-                    assert.equal(r.statusCode, 200);
-                    //assert.equal(metrics.resultCount, e);
-                    done();
-                }).catch((e) => {
-                    done(e);
-                })
-            }).timeout(50000);
-        });
-    });
-    describe(`Large Entries Test`, (done) => {
-        var entries = [100, 500];
-        entries.forEach((e) => {
-            it(`${e} entries large Entries`, (done) => {
-                FourwayJoin(e, true).then((r) => {
-                    let metrics = JSON.parse(r.body).metrics;
-                    assert.equal(r.statusCode, 200);
-                    //assert.equal(metrics.resultCount, e);
-                    done();
-                }).catch((e) => {
-                    done(e);
-                })
-            }).timeout(50000);
-        });
-    });
-})
+            promises.then((r) => {console.log(r.metrics.executionTime); return simpleJoin(6000,false)});
+        };
+        it(`${6000} entries small Entries`, (done) => {        
+            lastPromise.then((res) => {
+            let metrics = JSON.parse(r.body).metrics;
+            console.log(metrics.executionTime);
+            assert.equal(r.statusCode, 200);
+            assert.equal(metrics.resultCount, 6000);
+            console.log(executionTime/100);
+            done();
+        }).catch((err) => {
+            done(err);
+        })
+        }).timeout(50000);
+    })
+}
+)

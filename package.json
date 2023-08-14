@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter spec "
+    "test": "mocha --reporter spec"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "chai": "^4.3.7",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "seedrandom": "^3.0.5"
   },
   "devDependencies": {
     "mocha": "^10.2.0"
